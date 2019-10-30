@@ -1,0 +1,99 @@
+{% extends 'base.html' %}
+
+{% block body %}
+
+<br>
+
+<div class="button-group">
+
+<a href="{% url 'display_Electronics' %}" class="btn btn-primary btn-md" role="button">Electronics</a>
+<a href="{% url 'add_Electronics' %}" class="btn btn-success btn-sm" role="button"> +</a>
+
+<a href="{% url 'display_Apparel' %}" class="btn btn-primary btn-md" role="button">Apparel</a>
+<a href="{% url 'add_Apparel' %}" class="btn btn-success btn-sm" role="button"> +</a>
+
+<a href="{% url 'display_Equipment' %}" class="btn btn-primary btn-md" role="button">Equipment</a>
+<a href="{% url 'add_Equipment' %}" class="btn btn-success btn-sm" role="button"> +</a>
+
+<a href="{% url 'display_Toys' %}" class="btn btn-primary btn-md" role="button">Toys</a>
+<a href="{% url 'add_Toys' %}" class="btn btn-success btn-sm" role="button"> +</a>
+
+<a href="{% url 'display_Footwear' %}" class="btn btn-primary btn-md" role="button">Footwear</a>
+<a href="{% url 'add_Footwear' %}" class="btn btn-success btn-sm" role="button"> +</a>
+
+
+
+</div>
+
+<br>
+
+<h2>Currently Viewing {{ header }}</h2>
+<table class="table table-hover">
+    <thead>
+        <tr>
+            <th>ID</th>
+            <th>Item</th>
+            <th>Price</th>
+            <th>Stock</th>
+            <th>Website</th>
+            <th>Purchase Price</th>
+            <th>Posted Date</th>
+            <th>Bought at</th>
+            <th>Brand</th>
+            <th>Size</th>
+            <th>Model</th>
+        </tr>
+    </thead>
+
+    <tbody>
+
+        {% for item in items %}
+
+        <tr>
+            <td>{{ item.pk }}</td>
+            <td>{{ item.type }}</td>
+            <td>{{ item.price }}</td>
+            <td>{{ item.stock }}</td>
+            <td>{{ item.site }}</td>
+            <td>{{ item.purchased_price }}</td>
+            <td>{{ item.posted_date }}</td>
+            <td>{{ item.bought_at }}</td>
+            <td>{{ item.brand }}</td>
+            <td>{{ item.shoe_size}}</td>
+            <td>{{ item.model }}</td>
+            {% if header|lower == "Electronics" %}
+            <td>
+                <a href="{% url 'edit_Electronics' item.pk %}" class="btn btn-warning btn-sm" role="button">Edit</a>
+                <a href="{% url 'delete_Electronics' item.pk %}" class="btn btn-danger btn-sm" role="button">x</a>
+            </td>
+            {% elif header|lower == "Apparel" %}
+            <td>
+                <a href="{% url 'edit_Apparel' item.pk %}" class="btn btn-warning btn-sm" role="button">Edit</a>
+                <a href="{% url 'delete_Apparel' item.pk %}" class="btn btn-danger btn-sm" role="button">x</a>
+            </td>
+            {% elif header|lower == "Equipment" %}
+            <td>
+                <a href="{% url 'edit_Equipment' item.pk %}" class="btn btn-warning btn-sm" role="button">Edit</a>
+                <a href="{% url 'delete_Equipment' item.pk %}" class="btn btn-danger btn-sm" role="button">x</a>
+            </td>
+            {% elif header|lower == "Toys" %}
+            <td>
+                <a href="{% url 'edit_Toys' item.pk %}" class="btn btn-warning btn-sm" role="button">Edit</a>
+                <a href="{% url 'delete_Toys' item.pk %}" class="btn btn-danger btn-sm" role="button">x</a>
+            </td>
+            {% else %}
+            <td>
+                <a href="{% url 'edit_Footwear' item.pk %}" class="btn btn-warning btn-sm" role="button">Edit</a>
+                <a href="{% url 'delete_Footwear' item.pk %}" class="btn btn-danger btn-sm" role="button">x</a>
+            </td>
+            {% endif %}
+        </tr>
+
+
+        {% endfor %}
+
+    </tbody>
+
+</table>
+
+{% endblock %}
